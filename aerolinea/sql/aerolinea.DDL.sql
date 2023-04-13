@@ -1,21 +1,27 @@
-drop database if exists  conviasa;
-create database conviasa;
+-- Borrar base de datos si es que existe
+drop database if exists conviasa;
+--  Creamos base de datos si es que existe
+create DATABASE conviasa;
+-- Usamos la base de datos
 use conviasa;
 
+-- Crear pasajeros
 create table pasajeros(
 	pasaporte int primary key,
-    nro_vuelo int 
+   nro_vuelo int 
 );
 
+-- Crear vuelos
 create table vuelos (
 	nro int primary key auto_increment,
-    horaSalida int,
-    fecha date,
-    horallegada int,
+   horaSalida int,
+   fecha date,
+   horallegada int,
 	ciudad varchar (50),
-    nro_avion int
+   nro_avion int
 );
 
+-- Crear personal
 create table personal(
 	nroLegajo int primary key,
     nombre varchar (25),
@@ -23,6 +29,7 @@ create table personal(
     areaAsignada enum ('azafata','soporte','piloto','limpieza')
 );
 
+-- Crear aviones
 create table aviones (
 	nro int primary key,
     modelo varchar(50),
@@ -31,11 +38,14 @@ create table aviones (
     angar varchar(12)
     
 );
+
+-- Crear pilotos
 create table pilotos(
 	nroLegajo int primary key,
     nro_avion int
 );
 
+-- Crear piloto_personal
 create table piloto_personal(
 	id int primary key auto_increment,
     nroLegajo_piloto int,
@@ -71,3 +81,21 @@ references pilotos(nroLegajo);
 alter table piloto_personal
 add foreign key (nroLegajo_personal)
 references personal(nroLegajo);	
+
+/* 
+	Alter Table
+*/
+
+-- Renombrar tabla
+ALTER TABLE piloto_personal
+RENAME pilotos_personal;
+
+SELECT * FROM pilotos_personal;
+
+-- Renombrar columna
+-- Agregar columna
+-- Eliminar columna
+-- Modificar tipo de dato (modificar extra)
+-- Eliminar constraint
+-- Eliminar Primary key
+-- Eliminar Foreign key 
