@@ -32,24 +32,23 @@ create table personal(
 -- Crear aviones
 create table aviones (
 	nro int primary key,
-    modelo varchar(50),
-    fabricante varchar (50),
-    capacidad int,
-    angar varchar(12)
-    
+   modelo varchar(50),
+   fabricante varchar(50),
+   capacidad int,
+   angar varchar(12) 
 );
 
 -- Crear pilotos
 create table pilotos(
 	nroLegajo int primary key,
-    nro_avion int
+   nro_avion int
 );
 
 -- Crear piloto_personal
 create table piloto_personal(
 	id int primary key auto_increment,
-    nroLegajo_piloto int,
-    nroLegajo_personal int
+   nroLegajo_piloto int,
+   nroLegajo_personal int
 );
 
 /*
@@ -100,10 +99,29 @@ CHANGE pasaporte dni INT;
 ALTER TABLE vuelos
 ADD COLUMN precio DOUBLE;
 
+
+ALTER TABLE vuelos
+ADD COLUMN columnademas VARCHAR(50);
+
+
 -- Eliminar columna
+ALTER TABLE vuelos 
+DROP COLUMN columnademas;
 
 
 -- Modificar tipo de dato (modificar extra)
+ALTER TABLE aviones 
+MODIFY column modelo VARCHAR(25);
+
+
 -- Eliminar constraint
+alter table pilotos_personal
+modify column id int;
+
+
+
 -- Eliminar Primary key
--- Eliminar Foreign key 
+alter table pilotos_personal
+drop primary KEY;
+
+-- Eliminar Foreign key

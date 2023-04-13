@@ -29,10 +29,10 @@ INSERT INTO pilotos (nroLegajo, nro_avion) VALUES (35467453, 01);
 INSERT INTO pilotos (nroLegajo, nro_avion) VALUES (24447656, 02);
 INSERT INTO pilotos (nroLegajo, nro_avion) VALUES (34654567, 03);
 
--- ingreso registro a la tabla "Piloto_personal"
-INSERT INTO piloto_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (35467453, 35467453);
-INSERT INTO piloto_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (24447656, 24447656);
-INSERT INTO piloto_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (34654567, 34654567);
+-- ingreso registro a la tabla "pilotos_personal"
+INSERT INTO pilotos_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (35467453, 35467453);
+INSERT INTO pilotos_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (24447656, 24447656);
+INSERT INTO pilotos_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (34654567, 34654567);
 
 /* Consultas */
 select * from aviones;
@@ -40,7 +40,7 @@ select * from vuelos;
 select * from personal;
 select * from pasajeros;
 select * from pilotos;
-select * from piloto_personal;
+select * from pilotos_personal;
 
 -- Consultar la cantidad de horas totales que viajo el piloto de una ciudad a otra
 select horaSalida, horaLlegada, ciudad, (horaLlegada - horaSalida) as totalHoras from vuelos;
