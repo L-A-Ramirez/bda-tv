@@ -7,17 +7,17 @@ INSERT INTO aviones (nro, modelo, fabricante, capacidad, angar)
 VALUES (01, '350', 'AeroLis', 400, 'C2');
 
 -- Ingreso registro a la tabla "Vuelo"
-INSERT INTO vuelos (horaSalida, fecha, horaLlegada, ciudad, nro_avion) 
-VALUES (13, '2023-04-12', 15,'bariloche',02);
-INSERT INTO vuelos (horaSalida, fecha, horaLlegada, ciudad, nro_avion) 
-VALUES (15, '2023-04-15', 19, 'brasil', 01);
-INSERT INTO vuelos (horaSalida, fecha, horaLlegada, ciudad, nro_avion) 
-VALUES (09, '2023-04-15', 11, 'mar del plata',03);
+INSERT INTO vuelos (horaSalida, fecha, horaLlegada, ciudad, nro_avion, precio) 
+VALUES (13, '2023-04-12', 15,'bariloche',02,15000.00);
+INSERT INTO vuelos (horaSalida, fecha, horaLlegada, ciudad, nro_avion,precio) 
+VALUES (15, '2023-04-15', 19, 'brasil', 01,8000.00);
+INSERT INTO vuelos (horaSalida, fecha, horaLlegada, ciudad, nro_avion,precio) 
+VALUES (09, '2023-04-15', 11, 'mar del plata',03,10000.00);
 
 -- ingreso registro a la tabla "Pasajeros"
-INSERT INTO pasajeros (pasaporte, nro_vuelo) VALUES (22666443, 1);
-INSERT INTO pasajeros (pasaporte, nro_vuelo) VALUES (34653452, 2);
-INSERT INTO pasajeros (pasaporte, nro_vuelo) VALUES (32567457, 3);
+INSERT INTO pasajeros (dni, nro_vuelo) VALUES (22666443, 1);
+INSERT INTO pasajeros (dni, nro_vuelo) VALUES (34653452, 2);
+INSERT INTO pasajeros (dni, nro_vuelo) VALUES (32567457, 3);
 
 -- ingreso registro a la tabla "Personal"
 INSERT INTO personal (nroLegajo, nombre, nro_vuelo, areaAsignada) VALUES (35467453, 'Javier', 01, 'piloto');

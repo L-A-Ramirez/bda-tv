@@ -93,8 +93,16 @@ RENAME pilotos_personal;
 SELECT * FROM pilotos_personal;
 
 -- Renombrar columna
+ALTER TABLE pasajeros
+CHANGE pasaporte dni INT;
+
 -- Agregar columna
+ALTER TABLE vuelos
+ADD COLUMN precio DOUBLE;
+
 -- Eliminar columna
+
+
 -- Modificar tipo de dato (modificar extra)
 -- Eliminar constraint
 -- Eliminar Primary key
