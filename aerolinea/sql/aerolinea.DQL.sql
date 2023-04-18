@@ -13,7 +13,7 @@ select horaSalida, horaLlegada, ciudad, (horaLlegada - horaSalida) as totalHoras
 	Consultas con funciones
  */
 -- Consultar la cantidad de hora maxima total que viajo algun piloto (pendiente en consulta anidada)
-select max(horaLlegada - horaSalida) as totalHoras from vuelos;
+select max(horaLlegada - horaSalida) as totalHoras, ciudad from vuelos;
 
 -- Consultar la cantidad de hora minima total que viajo algun piloto (pendiente en consulta anidada)
 select min(horaLlegada - horaSalida) as totalHoras from vuelos;
@@ -51,5 +51,9 @@ select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 select precio, ciudad from vuelos where precio != 8000 and precio != 10000;
 
 /* 
-	
+	Join
+    1) Seleccionamos los campos de diferentes tablas
+    2) unimos tablas (join)
+    3) relacionamos tablas (on) y comparamos claves ("pasaporte = dni") <-- no importa el orden ("dni = pasaporte") 
 */
+select pasaporte, nombre from pasajeros join personas on pasaporte = dni;
