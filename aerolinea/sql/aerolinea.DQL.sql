@@ -50,7 +50,7 @@ select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 -- seleccioname el precio distinto a "8000 y 10000"
 select precio, ciudad from vuelos where precio != 8000 and precio != 10000;
 
-/* 
+/*
 	Join
     1) Seleccionamos los campos de diferentes tablas
     2) unimos tablas (join)
