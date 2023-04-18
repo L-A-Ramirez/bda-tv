@@ -33,17 +33,3 @@ INSERT INTO pilotos (nroLegajo, nro_avion) VALUES (34654567, 03);
 INSERT INTO pilotos_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (35467453, 35467453);
 INSERT INTO pilotos_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (24447656, 24447656);
 INSERT INTO pilotos_personal (nroLegajo_piloto, nroLegajo_personal) VALUES (34654567, 34654567);
-
-/* Consultas */
-select * from aviones;
-select * from vuelos;
-select * from personal;
-select * from pasajeros;
-select * from pilotos;
-select * from pilotos_personal;
-
--- Consultar la cantidad de horas totales que viajo el piloto de una ciudad a otra
-select horaSalida, horaLlegada, ciudad, (horaLlegada - horaSalida) as totalHoras from vuelos;
-
--- Consultar la cantidad total de pasajeros
-select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
