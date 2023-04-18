@@ -8,7 +8,18 @@ use conviasa;
 -- Crear pasajeros
 create table pasajeros(
 	pasaporte int primary key,
-   nro_vuelo int 
+	nro_vuelo int 
+);
+
+-- Crear personas
+create table personas(
+	pasaporte int primary key,
+	nombre varchar(25),
+    apellido varchar(25),
+    fechaNacimiento date,
+    nacionalidad enum("Argentina","Mexico","Chile","Peru","Colombia","Paraguay","Ecuador","Bolivia","Uruguay"),
+    telefono int,
+    email varchar(50)
 );
 
 -- Crear vuelos
@@ -17,7 +28,7 @@ create table vuelos (
    horaSalida int,
    fecha date,
    horallegada int,
-	ciudad varchar (50),
+   ciudad varchar (50),
    nro_avion int
 );
 
@@ -35,7 +46,7 @@ create table aviones (
    modelo varchar(50),
    fabricante varchar(50),
    capacidad int,
-   angar varchar(12) 
+   angar varchar(12)
 );
 
 -- Crear pilotos
@@ -51,7 +62,10 @@ create table piloto_personal(
    nroLegajo_personal int
 );
 
+
 /*
+	-------- RELACIONES --------
+
 	1) altero tabla pasajeros
 	2)agregar FK a la variable 'nro_vuelo' PK
 	3)referenciar FK que indicamos a 'nro' (pk) de vuelos
@@ -81,6 +95,10 @@ alter table piloto_personal
 add foreign key (nroLegajo_personal)
 references personal(nroLegajo);	
 
+alter table personas 
+add foreign key (pasaporte) 
+references pasajeros (pasaporte);
+
 /* 
 	Alter Table
 */
@@ -88,8 +106,6 @@ references personal(nroLegajo);
 -- Renombrar tabla
 ALTER TABLE piloto_personal
 RENAME pilotos_personal;
-
-SELECT * FROM pilotos_personal;
 
 -- Renombrar columna
 ALTER TABLE pasajeros
@@ -116,8 +132,7 @@ MODIFY column modelo VARCHAR(25);
 
 -- Eliminar constraint
 alter table pilotos_personal
-modify column id int;
-
+modify column id int auto_increment;
 
 
 -- Eliminar Primary key
