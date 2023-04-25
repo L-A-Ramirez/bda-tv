@@ -71,6 +71,7 @@ select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 select precio, ciudad from vuelos where precio != 18000 and precio != 27000.5 order by precio;
 
 -- ------------ Group by - Having
+-- condiciones usando funciones
 -- Guardamos en la variable "promVuelosChile" el promedio de los vuelos con ese destino
 select @promVuelosMdq:=avg(precio) from vuelos where ciudad = "MDQ";
 
@@ -98,6 +99,44 @@ select precio, ciudad from vuelos where precio != 8000 and precio != 10000;
 	Join
     1) Seleccionamos los campos de diferentes tablas
     2) unimos tablas (join)
-    3) relacionamos tablas (on) y comparamos claves ("pasaporte = dni") <-- no importa el orden ("dni = pasaporte") 
+    3) relacionamos campos de distintas tablas (on) y comparamos claves ("pasajeros.pasaporte = personas.pasaporte") <-- no importa el orden ("personas.pasaporte = pasajeros.pasaporte") 
 */
-select pasaporte, nombre from pasajeros join personas on pasaporte = dni;
+
+select pasajeros.pasaporte, personas.nombre from pasajeros
+join personas on personas.pasaporte = pasajeros.pasaporte;
+
+/* 
+	left join: Extrae todos los registros de la tabla izquierda que tengan 
+    o no una relación con la tabla derecha.
+    
+    right join: Extrae todos los registros de la tabla derecha que tengan 
+    o no una relación con la tabla izquierda.
+    
+    inner join: Extrae todos los registros de las tablas que tengan relación 
+    con la tabla relacionada (join).
+*/
+
+/* 
+	Traigo el pasaporte de la tabla pasajeros, la hora de salida, 
+    la fecha y la ciudad de vuelos 
+*/
+-- INNER JOIN explícito
+select pasajeros.pasaporte, vuelos.horaSalida, vuelos.fecha, vuelos.ciudad 
+from pasajeros join vuelos on pasajeros.nro_vuelo = vuelos.nro;
+
+-- INNER JOIN implícito (opcional)
+select pasaporte, horaSalida, fecha, ciudad from pasajeros, vuelos
+where pasajeros.nro_vuelo = vuelos.nro;
+
+-- INNER NATURAL JOIN (opcional)
+/* 
+	Natural join funciona siempre y cuando se cumpla con el mismo nombre entre las 
+    llaves de columnas de distinta tabla
+*/
+select pasaporte, nombre from pasajeros natural join personas;
+
+select pasajeros.pasaporte, personas.nombre, vuelos.horaSalida, 
+vuelos.fecha, vuelos.ciudad 
+from pasajeros, vuelos, personas
+where pasajeros.nro_vuelo = vuelos.nro 
+and pasajeros.pasaporte = personas.pasaporte;
