@@ -1,36 +1,65 @@
-drop database if exists  conviasa;
-create database conviasa;
-use conviasa;
+-- Comentario de una linea
 
-create table pasajeros(
-	pasaporte int primary key,
-    nro_vuelo int 
-);
+/* 
+	Comentario de bloque
+*/
 
-create table vuelos (
+-- SHOW DATABASES; -- Muestra las bases de datos
+
+drop database if exists aerolinea; -- Borra la base de datos
+create database if not exists aerolinea;
+use aerolinea;
+
+/* 
+	drop table if exists pasajeros;
+	drop table if exists vuelos;
+	drop table if exists personal;
+	drop table if exists aviones;
+	drop table if exists pilotos;
+	drop table if exists piloto_personal;
+*/
+
+-- SHOW TABLES; -- mostrar las tablas
+
+-- Creamos tabla pasajeros
+CREATE TABLE vuelos(
 	nro int primary key auto_increment,
     horaSalida int,
     fecha date,
-    horallegada int,
-	ciudad varchar (50),
-    nro_avion int
+    horaLlegada int,
+    ciudad varchar(50),
+    precio double
 );
 
-create table personal(
+create table personas (
+	pasaporte int primary key,
+    nombre varchar(50),
+    apellido varchar(50),
+    tel int,
+    email varchar(50)
+);
+
+CREATE TABLE pasajeros(
+	pasaporte int PRIMARY KEY,
+	nro_vuelo int
+);
+
+CREATE TABLE personal(
 	nroLegajo int primary key,
-    nombre varchar (25),
-    nro_vuelo int,
-    areaAsignada enum ('azafata','soporte','piloto','limpieza')
+    nombre varchar(25),
+    areaAsignada enum('azafata','soporte','limpieza','piloto'),
+	nro_vuelo int
 );
 
-create table aviones (
+CREATE TABLE aviones(
 	nro int primary key,
     modelo varchar(50),
-    fabricante varchar (50),
+    fabricante varchar(50),
     capacidad int,
-    angar varchar(12)
-    
+    pista varchar(12),
+    nro_vuelo int
 );
+
 create table pilotos(
 	nroLegajo int primary key,
     nro_avion int
@@ -42,32 +71,40 @@ create table piloto_personal(
     nroLegajo_personal int
 );
 
-/*
-	1) altero tabla pasajeros
-	2)agregar FK a la variable 'nro_vuelo' PK
-	3)referenciar FK que indicamos a 'nro' (pk) de vuelos
-*/ 
+/* 
+	Relaciones entre tablas (alter table) 
+*/
 
-alter table pasajeros
-add foreign key (nro_vuelo) 
-references vuelos(nro);
+/* 
+	1) alterame la tabla pasajeros
+    2) agregame foreign key (fk) a la variable "nro_vuelo"
+    3) referenciame la fk a la variable "nro" de la tabla vuelos
+*/
 
-alter table vuelos 
-add foreign key(nro_avion)
-references aviones(nro);
+alter table pasajeros 
+add foreign key (nro_vuelo)
+references vuelos (nro);
 
 alter table personal 
 add foreign key (nro_vuelo)
-references vuelos(nro);
+references vuelos (nro);
 
-alter table pilotos
-add foreign key(nro_avion)
-references aviones(nro);
+alter table aviones 
+add foreign key (nro_vuelo)
+references vuelos (nro);
 
-alter table piloto_personal
+alter table pilotos 
+add foreign key (nro_avion)
+references aviones (nro);
+
+alter table piloto_personal 
 add foreign key (nroLegajo_piloto)
-references pilotos(nroLegajo);
+references pilotos (nroLegajo);
 
-alter table piloto_personal
+alter table piloto_personal 
 add foreign key (nroLegajo_personal)
-references personal(nroLegajo);	
+references personal (nroLegajo);
+
+alter table personas 
+add foreign key (pasaporte)
+references pasajeros (pasaporte);
