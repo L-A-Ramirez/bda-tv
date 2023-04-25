@@ -12,8 +12,6 @@ select horaSalida, horaLlegada, ciudad, (horaLlegada - horaSalida) as totalHoras
 /*
 	Consultas con funciones
  */
-<<<<<<< HEAD
- 
 
 -- Guardamos en "variable1" el promedio de los precios con destino a "colombia"
  select @variable1 := avg(precio) from vuelos where ciudad = "colombia";
@@ -31,10 +29,10 @@ select @horasMaximaVuelo := max(horaLlegada - horaSalida) from vuelos;
  
 select (horaLlegada - horaSalida) as totalHoras, ciudad from vuelos
 having totalHoras = @horasMaximaVuelo;
-=======
+
 -- Consultar la cantidad de hora maxima total que viajo algun piloto (pendiente en consulta anidada)
 select max(horaLlegada - horaSalida) as totalHoras, ciudad from vuelos;
->>>>>>> 7abdc9a3b9275adc83f8918da921779abba72217
+
 
 -- Consultar la cantidad de hora minima total que viajo algun piloto (pendiente en consulta anidada)
 select min(horaLlegada - horaSalida) as totalHoras from vuelos;
@@ -57,7 +55,6 @@ select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 /*
 	Consultas condicionadas
  */
-<<<<<<< HEAD
  
  -- seleccioname el precio menor a "8000"
  select precio, ciudad from vuelos where precio > 18000;
@@ -74,22 +71,22 @@ select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 select precio, ciudad from vuelos where precio != 18000 and precio != 27000.5 order by precio;
 
 -- ------------ Group by - Having
--- resultado de la consulta que se guarda en la variable @promVuelosChile
 -- Guardamos en la variable "promVuelosChile" el promedio de los vuelos con ese destino
-select @promVuelosChile:=avg(precio) from vuelos where ciudad = "chile";
+select @promVuelosMdq:=avg(precio) from vuelos where ciudad = "MDQ";
 
+-- Quiero traer solo los mayores al promedio de chile
 select avg(precio), ciudad from vuelos
-group by ciudad having avg(precio) > @promVuelosChile;
+group by ciudad having avg(precio) > @promVuelosMdq;
 
 -- ------------
-=======
+
  -- seleccioname el precio menor a "8000"
  select precio, ciudad from vuelos where precio > 8000;
  
  -- seleccioname el precio menor a "15000"
  select precio, ciudad from vuelos where precio < 15000;
  
- -- seleccioname el precio entre "8000 y 15000"
+ -- - seleccioname el precio entre "8000 y 15000"
  select precio, ciudad from vuelos where precio >= 8000 and precio <= 15000;
  
  select precio, ciudad from vuelos where precio not between 8000 and 10000;
@@ -97,7 +94,6 @@ group by ciudad having avg(precio) > @promVuelosChile;
 -- seleccioname el precio distinto a "8000 y 10000"
 select precio, ciudad from vuelos where precio != 8000 and precio != 10000;
 
->>>>>>> 7abdc9a3b9275adc83f8918da921779abba72217
 /*
 	Join
     1) Seleccionamos los campos de diferentes tablas
