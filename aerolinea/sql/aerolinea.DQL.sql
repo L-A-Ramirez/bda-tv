@@ -1,17 +1,5 @@
-/* Consultas */
-select * from aviones;
-select * from vuelos;
-select * from personal;
-select * from pasajeros;
-select * from pilotos;
-select * from pilotos_personal;
-
--- Consultar la cantidad de horas totales que viajo el piloto de una ciudad a otra
-select horaSalida, horaLlegada, ciudad, (horaLlegada - horaSalida) as totalHoras from vuelos;
-
-/*
-	Consultas con funciones
- */
+-- -------------------------
+-- -------------------------
 
 -- Guardamos en "variable1" el promedio de los precios con destino a "colombia"
  select @variable1 := avg(precio) from vuelos where ciudad = "colombia";
@@ -33,6 +21,8 @@ having totalHoras = @horasMaximaVuelo;
 -- Consultar la cantidad de hora maxima total que viajo algun piloto (pendiente en consulta anidada)
 select max(horaLlegada - horaSalida) as totalHoras, ciudad from vuelos;
 
+-- Consultar la cantidad de horas totales que viajo el piloto de una ciudad a otra
+select horaSalida, horaLlegada, ciudad, (horaLlegada - horaSalida) as totalHoras from vuelos;
 
 -- Consultar la cantidad de hora minima total que viajo algun piloto (pendiente en consulta anidada)
 select min(horaLlegada - horaSalida) as totalHoras from vuelos;
@@ -52,10 +42,10 @@ select sum(precio) as Suma_total_vuelos from vuelos;
 -- Consultar la cantidad total de pasajeros con destino a bariloche
 select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 
-/*
-	Consultas condicionadas
- */
- 
+
+-- ------------------------------------------
+/*Consultas condicionadas*/
+ -- ------------------------------------------
  -- seleccioname el precio menor a "8000"
  select precio, ciudad from vuelos where precio > 18000;
  
@@ -70,7 +60,10 @@ select count(*) as cantidad_total from vuelos where ciudad = "bariloche";
 -- seleccioname el precio distinto a "8000 y 10000"
 select precio, ciudad from vuelos where precio != 18000 and precio != 27000.5 order by precio;
 
+
+-- ------------------------------------------
 -- ------------ Group by - Having
+-- ------------------------------------------
 -- condiciones usando funciones
 -- Guardamos en la variable "promVuelosChile" el promedio de los vuelos con ese destino
 select @promVuelosMdq:=avg(precio) from vuelos where ciudad = "MDQ";
@@ -78,8 +71,6 @@ select @promVuelosMdq:=avg(precio) from vuelos where ciudad = "MDQ";
 -- Quiero traer solo los mayores al promedio de chile
 select avg(precio), ciudad from vuelos
 group by ciudad having avg(precio) > @promVuelosMdq;
-
--- ------------
 
  -- seleccioname el precio menor a "8000"
  select precio, ciudad from vuelos where precio > 8000;
@@ -95,14 +86,17 @@ group by ciudad having avg(precio) > @promVuelosMdq;
 -- seleccioname el precio distinto a "8000 y 10000"
 select precio, ciudad from vuelos where precio != 8000 and precio != 10000;
 
+
+-- ------------------------------------------
 /*
 	Join
     1) Seleccionamos los campos de diferentes tablas
     2) unimos tablas (join)
     3) relacionamos campos de distintas tablas (on) y comparamos claves ("pasajeros.pasaporte = personas.pasaporte") <-- no importa el orden ("personas.pasaporte = pasajeros.pasaporte") 
 */
+-- ------------------------------------------
 
-select pasajeros.pasaporte, personas.nombre from pasajeros
+select pasajeros.pasaporte, personas.nombre from pasajeros 
 join personas on personas.pasaporte = pasajeros.pasaporte;
 
 /* 
@@ -140,3 +134,24 @@ vuelos.fecha, vuelos.ciudad
 from pasajeros, vuelos, personas
 where pasajeros.nro_vuelo = vuelos.nro 
 and pasajeros.pasaporte = personas.pasaporte;
+
+-- ------------------------------------------
+-- Consultas anidadas
+-- ------------------------------------------
+/* 
+	Agrupamos y contamos la suma de precio de los vuelos que sean mayores 
+	al promedio del precio de chile
+*/
+
+-- resultado de la consulta que se guarda en la variable @promVuelosChile
+select @promVuelosChile:=avg(precio) from vuelos where ciudad = "chile";
+
+-- seleccioname el promedio, la ciudad de vuelos y agrupame la ciudad y traeme 
+-- el promedio mayor a @promVuelosChile
+select avg(precio), ciudad from vuelos
+group by ciudad having avg(precio) > @promVuelosChile;
+
+select avg(precio), ciudad from vuelos
+group by ciudad having avg(precio) > (
+select avg(precio) from vuelos where ciudad = "chile" and precio
+);
